@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import ListItem from './listItem';
+import ListItem from './ListItem';
 import { mockProps } from '../../constants/const';
 import moment from 'moment';
 

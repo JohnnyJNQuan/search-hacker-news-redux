@@ -1,6 +1,6 @@
 import React from 'react';
 import Style from '../../styles/styles';
-import ListItem from './listItem';
+import ListItem from './ListItem';
 import PropTypes from 'prop-types';
 import '../../styles/search-page.css';
 class SearchList extends React.Component {

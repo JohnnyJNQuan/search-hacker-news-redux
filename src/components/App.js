@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import { Route, Switch } from "react-router-dom";
 
-import SearchPage from "./containers/searchPage";
+import SearchPage from "./containers/SearchPage";
 import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";

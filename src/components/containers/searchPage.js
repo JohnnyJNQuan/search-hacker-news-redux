@@ -1,16 +1,16 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Pagination from 'material-ui-flat-pagination';
-import SearchAppBar from '../presentationals/searchAppBar';
-import SearchList from '../presentationals/searchList';
-import NoFound from '../presentationals/notFound';
+import SearchAppBar from '../presentationals/SearchAppBar';
+import SearchList from '../presentationals/SearchList';
+import NoFound from '../presentationals/NotFound';
 import Style from '../../styles/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PropTypes from 'prop-types';
 import '../../styles/search-page.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as searchActions from '../../actions/searchActions';
+import * as searchActions from '../../actions/SearchActions';
 import { convertTimeScope } from '../../utils/convert';
 
 export class SearchPage extends React.Component {

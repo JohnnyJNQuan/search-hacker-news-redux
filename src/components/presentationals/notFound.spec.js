@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import NotFound from './notFound';
+import NotFound from './NotFound';
 import { mockKeyWord } from '../../constants/const';
 
 const notFound = shallow(<NotFound keyWord={mockKeyWord} />);
