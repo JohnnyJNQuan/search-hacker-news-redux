@@ -9,3 +9,9 @@ export function convertTimeScope(model) {
     }
     return searchTimeSpan;
 }
+
+
+export function convertHighlightedText(model) {
+    const prefixReplace = model.replace(new RegExp('\u003cem\u003e', 'g'), '<b style="background:yellow;">');
+    return prefixReplace.replace(new RegExp('\u003c/em\u003e', 'g'), '</b>');
+}

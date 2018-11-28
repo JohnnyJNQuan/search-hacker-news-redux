@@ -23,7 +23,7 @@ class SearchList extends React.Component {
 }
 
 SearchList.propTypes = {
-    highlightedItemList: PropTypes.Object
+    highlightedItemList: PropTypes.array
 };
 
 

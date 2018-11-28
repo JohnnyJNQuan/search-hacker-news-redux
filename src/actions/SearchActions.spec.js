@@ -1,41 +1,37 @@
 import * as ActionCreators from './SearchActions';
 
-describe('Actions', () => {
+describe('verify the functions in Actions', () => {
 
 
-  it('should create an action to make an initial query', () => {
+    it('should create an action to make an initial query', () => {
 
-    // we expect this to return a function since it is a thunk
-    expect(typeof (ActionCreators.initialQuery())).toEqual('function');
+        // expect this to return a function since it is a thunk
+        expect(typeof (ActionCreators.initialQuery())).toEqual('function');
 
-  });
+    });
 
-  it('should create an action to make queries', () => {
+    it('should create an action to make queries', () => {
 
-    // we expect this to return a function since it is a thunk
-    expect(typeof (ActionCreators.Query())).toEqual('function');
+        expect(typeof (ActionCreators.query())).toEqual('function');
 
-  });
+    });
 
-  it('should create an action to make pagination', () => {
+    it('should create an action to make pagination', () => {
 
-    // we expect this to return a function since it is a thunk
-    expect(typeof (ActionCreators.Pagination())).toEqual('function');
+        expect(typeof (ActionCreators.pagination())).toEqual('function');
 
-  });
+    });
 
-  it('should create an action to make sorting', () => {
+    it('should create an action to make sorting', () => {
 
-    // we expect this to return a function since it is a thunk
-    expect(typeof (ActionCreators.SortBy())).toEqual('function');
+        expect(typeof (ActionCreators.sortBy())).toEqual('function');
 
-  });
+    });
 
-  it('should create an action to make filtering', () => {
+    it('should create an action to make filtering', () => {
 
-    // we expect this to return a function since it is a thunk
-    expect(typeof (ActionCreators.Filter())).toEqual('function');
+        expect(typeof (ActionCreators.filter())).toEqual('function');
 
-  });
+    });
 
 });

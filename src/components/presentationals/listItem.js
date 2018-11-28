@@ -1,6 +1,5 @@
 import React from 'react';
 import Style from '../../styles/styles';
-//import * as moment from 'moment';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import '../../styles/search-page.css';

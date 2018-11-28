@@ -14,7 +14,7 @@ export const initialQuery = () => {
 	};
 };
 
-export const Query = (obj) => {
+export const query = (obj) => {
 	return async (dispatch) => {
 		try {
 			const param = `${obj.searchBy}tags=story${obj.query ? `&query=${obj.query}` : ''}${obj.searchTimeSpan}`;
@@ -28,7 +28,7 @@ export const Query = (obj) => {
 	};
 };
 
-export const Pagination = (obj) => {
+export const pagination = (obj) => {
 	return async (dispatch) => {
 		try {
 			const param = `${obj.searchBy}tags=story${obj.keyWord ? `&query=${obj.keyWord}` : ''}${obj.offset ? `&page=${obj.offset}` : ''}${obj.searchTimeSpan}`
@@ -41,7 +41,7 @@ export const Pagination = (obj) => {
 	};
 };
 
-export const SortBy = (obj) => {
+export const sortBy = (obj) => {
 	return async (dispatch) => {
 		try {
 			const param = `${obj.searchBy}tags=story${obj.keyWord ? `&query=${obj.keyWord}` : ''}${obj.searchTimeSpan}`;
@@ -54,7 +54,7 @@ export const SortBy = (obj) => {
 	};
 };
 
-export const Filter = (obj) => {
+export const filter = (obj) => {
 	return async (dispatch) => {
 		try {
 			const param = `${obj.searchBy}tags=story${obj.keyWord ? `&query=${obj.keyWord}` : ''}${obj.searchTimeSpan}`;

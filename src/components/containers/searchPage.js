@@ -11,15 +11,16 @@ import '../../styles/search-page.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as searchActions from '../../actions/SearchActions';
-import { convertTimeScope } from '../../utils/convert';
+import { convertTimeScope, convertHighlightedText } from '../../utils/convert';
 
 export class SearchPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            searchValues: Object.assign({}, this.props.searchModel),
             loading: false,
-            keyWord: null,
+            keyWord: '',
             pageNumber: 0,
             searchBy: 'search?',
             searchFor: 'All Time',
@@ -29,13 +30,18 @@ export class SearchPage extends React.Component {
         };
     }
 
-
     componentDidMount() {
         this.props.searchActions.initialQuery()
             .then(() => {
-                this.setState({ initialLoading: false });
+                this.setState({ initialLoading: false, });
             }
             );
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.searchModel.query === this.state.keyWord) {
+            this.setState({ searchValues: Object.assign({}, nextProps.searchModel) })
+        }
     }
 
     // search query when Typing
@@ -48,7 +54,7 @@ export class SearchPage extends React.Component {
             searchTimeSpan: searchTimeSpan,
             query: query
         }
-        this.props.searchActions.Query(queryModel).then(() => {
+        this.props.searchActions.query(queryModel).then(() => {
             this.setState({ loading: false });
         }
         )
@@ -64,7 +70,7 @@ export class SearchPage extends React.Component {
             keyWord: keyWord
         }
 
-        this.props.searchActions.Pagination(queryModel).then(() => {
+        this.props.searchActions.pagination(queryModel).then(() => {
             this.setState({ loading: false });
         }
         )
@@ -78,7 +84,7 @@ export class SearchPage extends React.Component {
             searchTimeSpan: searchTimeSpan,
             keyWord: keyWord
         }
-        this.props.searchActions.SortBy(queryModel).then(() => {
+        this.props.searchActions.sortBy(queryModel).then(() => {
             this.setState({ loading: false, pageNumber: 0 });
         }
         )
@@ -95,7 +101,7 @@ export class SearchPage extends React.Component {
             keyWord: keyWord
         }
 
-        this.props.searchActions.Filter(queryModel).then(() => {
+        this.props.searchActions.filter(queryModel).then(() => {
             this.setState({ loading: false, pageNumber: 0 });
         }
         )
@@ -103,35 +109,23 @@ export class SearchPage extends React.Component {
     }
 
     render() {
-        // console.log(this.state);
-        // console.log(this.props);
-        const { keyWord, pageNumber, searchBy, searchFor, loading, initialLoading } = this.state;
-        const { searchModel } = this.props
+        const { keyWord, pageNumber, searchBy, searchFor, loading, initialLoading, searchValues } = this.state;
         // build inner html to highlight search result
-        // const highlightedItemList = convertingHighlightedHtml(searchModel, keyWord);
-        const highlightedItemList = searchModel ? searchModel.hits.map((item) => {
+        const highlightedItemList = (searchValues && searchValues.hits) ? searchValues.hits.map((item) => {
             const r = Object.assign({}, item);
             r.rawUrl = r.url;
             if (keyWord) {
                 if (r._highlightResult.title.value) {
-                    const prefixReplace = r._highlightResult.title.value.replace(new RegExp('\u003cem\u003e', 'g'), '<b style="background:yellow;">');
-                    const titleUpdatedValue = prefixReplace.replace(new RegExp('\u003c/em\u003e', 'g'), '</b>');
-                    r.title = <span dangerouslySetInnerHTML={{ __html: titleUpdatedValue }} />;
+                    r.title = <span dangerouslySetInnerHTML={{ __html: convertHighlightedText(r._highlightResult.title.value) }} />;
                 }
                 if (r._highlightResult.url ? r._highlightResult.url.value : false) {
-                    const prefixReplace = r._highlightResult.url.value.replace(new RegExp('\u003cem\u003e', 'g'), '<b style="background:yellow;">');
-                    const urlUpdatedValue = prefixReplace.replace(new RegExp('\u003c/em\u003e', 'g'), '</b>');
-                    r.url = <span dangerouslySetInnerHTML={{ __html: urlUpdatedValue }} />;
+                    r.url = <span dangerouslySetInnerHTML={{ __html: convertHighlightedText(r._highlightResult.url.value) }} />;
                 }
                 if (r._highlightResult.author ? r._highlightResult.author.value : false) {
-                    const prefixReplace = r._highlightResult.author.value.replace(new RegExp('\u003cem\u003e', 'g'), '<b style="background:yellow;">');
-                    const authorUpdatedValue = prefixReplace.replace(new RegExp('\u003c/em\u003e', 'g'), '</b>');
-                    r.author = <span dangerouslySetInnerHTML={{ __html: authorUpdatedValue }} />;
+                    r.author = <span dangerouslySetInnerHTML={{ __html: convertHighlightedText(r._highlightResult.author.value) }} />;
                 }
                 if (r.story_text) {
-                    const prefixReplace = r.story_text.replace(new RegExp('\u003cem\u003e', 'g'), '<b style="background:yellow;">');
-                    const storyUpdatedValue = prefixReplace.replace(new RegExp('\u003c/em\u003e', 'g'), '</b>');
-                    r.story_text = <span dangerouslySetInnerHTML={{ __html: storyUpdatedValue }} />;
+                    r.story_text = <span dangerouslySetInnerHTML={{ __html: convertHighlightedText(r.story_text) }} />;
                 }
             } else {
                 if (r.story_text) {
@@ -141,7 +135,6 @@ export class SearchPage extends React.Component {
 
             return r;
         }) : [];
-        // console.log(highlightedItemList);
         if (initialLoading) {
             return <LinearProgress />;
         }
@@ -166,7 +159,7 @@ export class SearchPage extends React.Component {
                 <Pagination
                     limit={1}
                     offset={pageNumber}
-                    total={searchModel ? searchModel.nbPages : 0}
+                    total={searchValues ? searchValues.nbPages : 0}
                     onClick={(e, offset) => this.handleClick(offset)}
                 />
 

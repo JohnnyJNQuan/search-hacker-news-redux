@@ -5,7 +5,9 @@ import '../../styles/search-page.css';
 class NotFound extends React.Component {
   render() {
     return <div >
-      <div id='notFound' style={Style.notFound}>No stories matching <b style={Style.keyWordSpan}>{this.props.keyWord}</b></div>
+      <div id='notFound' style={Style.notFound}>
+        No stories matching <b style={Style.keyWordSpan}>{this.props.keyWord}</b>
+      </div>
 
     </div>;
   }
