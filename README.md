@@ -3,7 +3,7 @@
 
 1. **Initial Machine Setup**
 
-    First time running the starter kit? Then complete the [Initial Machine Setup](#initial-machine-setup).
+    Please complete the [Initial Machine Setup](#initial-machine-setup) first.
 
 2. **Clone the project**
 
